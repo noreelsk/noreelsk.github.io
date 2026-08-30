@@ -1,13 +1,13 @@
 {
   "competition": "Noreel Cup",
 
-  "mainMatchId": "match-4",
+  "mainMatchId": "",
 
   "matches": [
     {
       "id": "match-1",
       "matchNumber": 1,
-      "stage": "Group Stage",
+      "stage": "Quarter Final",
       "status": "done",
       "phase": "penalties",
 
@@ -99,12 +99,12 @@
     {
       "id": "match-2",
       "matchNumber": 2,
-      "stage": "Group Stage",
-      "status": "not-started",
+      "stage": "Quarter Final",
+      "status": "done",
 
       "teamA": {
         "name": "Unique Black",
-        "score": 0
+        "score": 2
       },
 
       "teamB": {
@@ -118,17 +118,17 @@
     {
       "id": "match-3",
       "matchNumber": 3,
-      "stage": "Group Stage",
-      "status": "not-started",
+      "stage": "Quarter Final",
+      "status": "done",
 
       "teamA": {
         "name": "Noreel",
-        "score": 0
+        "score": 4
       },
 
       "teamB": {
         "name": "Stovner Lions",
-        "score": 0
+        "score": 2
       },
 
       "events": []
@@ -137,17 +137,17 @@
     {
       "id": "match-4",
       "matchNumber": 4,
-      "stage": "Group Stage",
-      "status": "not-started",
+      "stage": "Quarter Final",
+      "status": "done",
 
       "teamA": {
         "name": "Stovner Giants",
-        "score": 0
+        "score": 3
       },
 
       "teamB": {
         "name": "Minnel",
-        "score": 0
+        "score": 1
       },
 
       "events": []
