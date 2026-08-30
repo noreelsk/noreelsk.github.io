@@ -50,7 +50,7 @@ const TEAMS = {
 
   'unique black': {
     name: 'Unique Black',
-    logo: 'assets/unique_black.jpg'
+    logo: 'assets/unique.jpg'
   }
 };
 
@@ -104,6 +104,21 @@ function safeText(
 
 
 function safeScore(value) {
+  const score =
+    Number(value);
+
+  if (
+    !Number.isFinite(score) ||
+    score < 0
+  ) {
+    return 0;
+  }
+
+  return Math.floor(score);
+}
+
+
+function safePenaltyScore(value) {
   const score =
     Number(value);
 
@@ -185,14 +200,23 @@ function getTeam(teamData) {
 
 
   if (registered) {
+
     return {
       ...registered,
 
       score:
         safeScore(
           teamData?.score
-        )
+        ),
+
+      penalties:
+        teamData?.penalties === undefined
+          ? null
+          : safePenaltyScore(
+              teamData.penalties
+            )
     };
+
   }
 
 
@@ -208,7 +232,14 @@ function getTeam(teamData) {
     score:
       safeScore(
         teamData?.score
-      )
+      ),
+
+    penalties:
+      teamData?.penalties === undefined
+        ? null
+        : safePenaltyScore(
+            teamData.penalties
+          )
   };
 }
 
@@ -220,11 +251,13 @@ function getTeam(teamData) {
  */
 
 function getStatusData(status) {
+
   switch (
     normalizeStatus(status)
   ) {
 
     case 'in-progress':
+
       return {
         label: 'IN PROGRESS',
         className: 'status-in-progress'
@@ -232,6 +265,7 @@ function getStatusData(status) {
 
 
     case 'done':
+
       return {
         label: 'DONE',
         className: 'status-done'
@@ -239,6 +273,7 @@ function getStatusData(status) {
 
 
     default:
+
       return {
         label: 'NOT STARTED',
         className: 'status-not-started'
@@ -294,37 +329,54 @@ function createStatusBadge(
  * ==================================================
  * MATCH PHASE
  * ==================================================
- *
- * Supported:
- *
- * 1st-half
- * 2nd-half
- * 1st-extra-half
- * 2nd-extra-half
- * penalties
  */
 
 function getPhaseLabel(
   phase,
   status
 ) {
+  const normalizedPhase =
+    normalizePhase(phase);
+
+  const normalizedStatus =
+    normalizeStatus(status);
+
+
+  /*
+   * A finished penalty shootout should
+   * still say PENALTIES.
+   */
+
   if (
-    normalizeStatus(status) !==
+    normalizedPhase === 'penalties' ||
+    normalizedPhase === 'penalty' ||
+    normalizedPhase === 'penalty-shootout'
+  ) {
+    return 'PENALTIES';
+  }
+
+
+  /*
+   * Normal phases only need to be shown
+   * while a match is being played.
+   */
+
+  if (
+    normalizedStatus !==
     'in-progress'
   ) {
     return '';
   }
 
 
-  switch (
-    normalizePhase(phase)
-  ) {
+  switch (normalizedPhase) {
 
     case '1st-half':
     case 'first-half':
     case '1st':
     case 'first':
     case '1':
+
       return '1ST HALF';
 
 
@@ -333,6 +385,7 @@ function getPhaseLabel(
     case '2nd':
     case 'second':
     case '2':
+
       return '2ND HALF';
 
 
@@ -340,6 +393,7 @@ function getPhaseLabel(
     case 'first-extra-half':
     case '1st-extra':
     case 'first-extra':
+
       return '1ST EXTRA HALF';
 
 
@@ -347,16 +401,12 @@ function getPhaseLabel(
     case 'second-extra-half':
     case '2nd-extra':
     case 'second-extra':
+
       return '2ND EXTRA HALF';
 
 
-    case 'penalty':
-    case 'penalties':
-    case 'penalty-shootout':
-      return 'PENALTIES';
-
-
     default:
+
       return '';
   }
 }
@@ -364,7 +414,96 @@ function getPhaseLabel(
 
 /*
  * ==================================================
- * TEAM LOGO
+ * PENALTIES
+ * ==================================================
+ */
+
+function hasPenaltyScore(
+  teamA,
+  teamB
+) {
+  return (
+    teamA.penalties !== null &&
+    teamB.penalties !== null
+  );
+}
+
+
+function createFeaturedPenaltyScore(
+  teamA,
+  teamB
+) {
+  const row =
+    createElement(
+      'div',
+      'featured-penalty-score'
+    );
+
+
+  row.append(
+    createElement(
+      'span',
+      'penalty-label',
+      'PENS'
+    ),
+
+    createElement(
+      'span',
+      'penalty-number',
+      teamA.penalties
+    ),
+
+    createElement(
+      'span',
+      'penalty-separator',
+      ':'
+    ),
+
+    createElement(
+      'span',
+      'penalty-number',
+      teamB.penalties
+    )
+  );
+
+
+  return row;
+}
+
+
+function createOverviewPenaltyScore(
+  teamA,
+  teamB
+) {
+  const row =
+    createElement(
+      'div',
+      'overview-penalty-score'
+    );
+
+
+  row.append(
+    createElement(
+      'span',
+      '',
+      'PENS'
+    ),
+
+    createElement(
+      'strong',
+      '',
+      `${teamA.penalties} : ${teamB.penalties}`
+    )
+  );
+
+
+  return row;
+}
+
+
+/*
+ * ==================================================
+ * LOGO
  * ==================================================
  */
 
@@ -384,11 +523,14 @@ function createTeamLogo(
     const image =
       document.createElement('img');
 
+
     image.src =
       team.logo;
 
+
     image.alt =
       `${team.name} logo`;
+
 
     frame.append(
       image
@@ -418,6 +560,7 @@ function createTeamLogo(
  */
 
 function getEventData(type) {
+
   switch (
     String(type || '')
       .trim()
@@ -425,6 +568,7 @@ function getEventData(type) {
   ) {
 
     case 'goal':
+
       return {
         icon: '⚽',
         label: 'Goal',
@@ -433,6 +577,7 @@ function getEventData(type) {
 
 
     case 'yellow-card':
+
       return {
         icon: '',
         label: 'Yellow card',
@@ -441,6 +586,7 @@ function getEventData(type) {
 
 
     case 'red-card':
+
       return {
         icon: '',
         label: 'Red card',
@@ -448,7 +594,26 @@ function getEventData(type) {
       };
 
 
+    case 'penalty-goal':
+
+      return {
+        icon: '⚽',
+        label: 'Penalty scored',
+        className: 'event-penalty-goal'
+      };
+
+
+    case 'penalty-miss':
+
+      return {
+        icon: '✕',
+        label: 'Penalty missed',
+        className: 'event-penalty-miss'
+      };
+
+
     default:
+
       return {
         icon: '•',
         label: 'Match update',
@@ -489,6 +654,10 @@ function createEventItem(
     );
 
 
+  /*
+   * ICON
+   */
+
   const icon =
     createElement(
       'div',
@@ -527,6 +696,10 @@ function createEventItem(
 
   }
 
+
+  /*
+   * CONTENT
+   */
 
   const content =
     createElement(
@@ -592,12 +765,13 @@ function renderEvents(match) {
       )
     );
 
+
     return;
   }
 
 
   /*
-   * Latest JSON event first.
+   * Newest event first.
    */
 
   [...events]
@@ -651,11 +825,6 @@ function createFeaturedTeam(team) {
  * ==================================================
  * FEATURED MATCH INFO
  * ==================================================
- *
- * Layout:
- *
- *    1ST HALF
- *   IN PROGRESS
  */
 
 function createFeaturedMatchInfo(match) {
@@ -751,7 +920,7 @@ function renderMainMatch(match) {
 
 
   /*
-   * Header
+   * HEADER
    */
 
   const top =
@@ -794,7 +963,7 @@ function renderMainMatch(match) {
 
 
   /*
-   * Score area
+   * SCORE AREA
    */
 
   const scoreArea =
@@ -807,6 +976,12 @@ function renderMainMatch(match) {
   const teamAElement =
     createFeaturedTeam(
       teamA
+    );
+
+
+  const teamBElement =
+    createFeaturedTeam(
+      teamB
     );
 
 
@@ -846,18 +1021,40 @@ function renderMainMatch(match) {
 
 
   scoreBlock.append(
-    scoreRow,
+    scoreRow
+  );
 
+
+  /*
+   * PENALTY SCORE
+   */
+
+  if (
+    hasPenaltyScore(
+      teamA,
+      teamB
+    )
+  ) {
+
+    scoreBlock.append(
+      createFeaturedPenaltyScore(
+        teamA,
+        teamB
+      )
+    );
+
+  }
+
+
+  /*
+   * PHASE + STATUS
+   */
+
+  scoreBlock.append(
     createFeaturedMatchInfo(
       match
     )
   );
-
-
-  const teamBElement =
-    createFeaturedTeam(
-      teamB
-    );
 
 
   scoreArea.append(
@@ -868,7 +1065,7 @@ function renderMainMatch(match) {
 
 
   /*
-   * Accent
+   * RED ACCENT
    */
 
   const accent =
@@ -935,7 +1132,7 @@ function createOverviewTeam(team) {
 
 /*
  * ==================================================
- * OVERVIEW STATUS
+ * OVERVIEW MATCH INFO
  * ==================================================
  */
 
@@ -1013,7 +1210,7 @@ function createMatchCard(
 
 
   /*
-   * Main marker
+   * CURRENT MATCH MARKER
    */
 
   if (isMain) {
@@ -1030,7 +1227,7 @@ function createMatchCard(
 
 
   /*
-   * Header
+   * TOP
    */
 
   const top =
@@ -1083,7 +1280,7 @@ function createMatchCard(
 
 
   /*
-   * Teams / score
+   * BODY
    */
 
   const body =
@@ -1093,11 +1290,11 @@ function createMatchCard(
     );
 
 
-  body.append(
-    createOverviewTeam(
-      teamA
-    )
-  );
+  const scoreArea =
+    createElement(
+      'div',
+      'overview-score-area'
+    );
 
 
   const score =
@@ -1128,8 +1325,34 @@ function createMatchCard(
   );
 
 
+  scoreArea.append(
+    score
+  );
+
+
+  if (
+    hasPenaltyScore(
+      teamA,
+      teamB
+    )
+  ) {
+
+    scoreArea.append(
+      createOverviewPenaltyScore(
+        teamA,
+        teamB
+      )
+    );
+
+  }
+
+
   body.append(
-    score,
+    createOverviewTeam(
+      teamA
+    ),
+
+    scoreArea,
 
     createOverviewTeam(
       teamB
@@ -1220,7 +1443,7 @@ function renderLastUpdated() {
 
 /*
  * ==================================================
- * MAIN RENDER
+ * RENDER
  * ==================================================
  */
 
@@ -1276,7 +1499,7 @@ function render(data) {
 
 /*
  * ==================================================
- * FETCH
+ * FETCH JSON
  * ==================================================
  */
 
