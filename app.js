@@ -1,4 +1,4 @@
-const REFRESH_INTERVAL_MS = 10_000;
+const REFRESH_INTERVAL_MS = 1_000;
 
 
 /*
