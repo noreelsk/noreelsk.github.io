@@ -1,0 +1,141 @@
+{
+  "competition": "Noreel Cup",
+
+  "mainMatchId": "match-2",
+
+  "matches": [
+    {
+      "id": "match-1",
+      "matchNumber": 1,
+      "stage": "Quarter final 1",
+      "status": "done",
+      "phase": "1st-half",
+
+      "teamA": {
+        "name": "Everest Blue",
+        "score": 2
+      },
+
+      "teamB": {
+        "name": "LTSK",
+        "score": 3
+      },
+
+      "events": []
+    },
+
+    {
+      "id": "match-2",
+      "matchNumber": 2,
+      "stage": "Quarter final 2",
+      "status": "not-started",
+
+      "teamA": {
+        "name": "Unique Black",
+        "score": 0
+      },
+
+      "teamB": {
+        "name": "Nordavind",
+        "score": 0
+      },
+
+      "events": []
+    },
+
+    {
+      "id": "match-3",
+      "matchNumber": 3,
+      "stage": "Quarter final 3",
+      "status": "not-started",
+
+      "teamA": {
+        "name": "Noreel",
+        "score": 0
+      },
+
+      "teamB": {
+        "name": "Stovner Lions",
+        "score": 0
+      },
+
+      "events": []
+    },
+
+    {
+      "id": "match-4",
+      "matchNumber": 4,
+      "stage": "Quarter final 4",
+      "status": "not-started",
+
+      "teamA": {
+        "name": "Stovner Giants",
+        "score": 0
+      },
+
+      "teamB": {
+        "name": "Minnel",
+        "score": 0
+      },
+
+      "events": []
+    },
+
+    {
+      "id": "match-5",
+      "matchNumber": 5,
+      "stage": "Semi final 1",
+      "status": "not-started",
+
+      "teamA": {
+        "name": "TBD",
+        "score": 0
+      },
+
+      "teamB": {
+        "name": "TBD",
+        "score": 0
+      },
+
+      "events": []
+    },
+
+    {
+      "id": "match-6",
+      "matchNumber": 6,
+      "stage": "Semi final 2",
+      "status": "not-started",
+
+      "teamA": {
+        "name": "TBD",
+        "score": 0
+      },
+
+      "teamB": {
+        "name": "TBD",
+        "score": 0
+      },
+
+      "events": []
+    },
+
+    {
+      "id": "match-7",
+      "matchNumber": 7,
+      "stage": "Final",
+      "status": "not-started",
+
+      "teamA": {
+        "name": "TBD",
+        "score": 0
+      },
+
+      "teamB": {
+        "name": "TBD",
+        "score": 0
+      },
+
+      "events": []
+    }
+  ]
+}
