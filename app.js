@@ -50,7 +50,7 @@ const TEAMS = {
 
   'unique black': {
     name: 'Unique Black',
-    logo: 'assets/unique.jpg'
+    logo: 'assets/unique_black.jpg'
   }
 };
 
