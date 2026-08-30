@@ -1,33 +1,105 @@
 {
   "competition": "Noreel Cup",
 
-  "mainMatchId": "match-2",
+  "mainMatchId": "match-1",
 
   "matches": [
     {
       "id": "match-1",
       "matchNumber": 1,
-      "stage": "Quarter final 1",
+      "stage": "Group Stage",
       "status": "done",
-      "phase": "1st-half",
+      "phase": "penalties",
 
       "teamA": {
         "name": "Everest Blue",
-        "score": 3
+        "score": 3,
+        "penalties": 2
       },
 
       "teamB": {
         "name": "LTSK",
-        "score": 3
+        "score": 3,
+        "penalties": 3
       },
 
-      "events": []
+      "events": [
+        {
+          "type": "goal",
+          "team": "B"
+        },
+
+        {
+          "type": "goal",
+          "team": "A"
+        },
+
+        {
+          "type": "yellow-card",
+          "team": "A"
+        },
+
+        {
+          "type": "goal",
+          "team": "B"
+        },
+
+        {
+          "type": "goal",
+          "team": "A"
+        },
+
+        {
+          "type": "goal",
+          "team": "B"
+        },
+
+        {
+          "type": "goal",
+          "team": "A"
+        },
+
+        {
+          "type": "yellow-card",
+          "team": "B"
+        },
+
+        {
+          "type": "penalty-goal",
+          "team": "A"
+        },
+
+        {
+          "type": "penalty-goal",
+          "team": "B"
+        },
+
+        {
+          "type": "penalty-goal",
+          "team": "A"
+        },
+
+        {
+          "type": "penalty-goal",
+          "team": "B"
+        },
+
+        {
+          "type": "penalty-miss",
+          "team": "A"
+        },
+
+        {
+          "type": "penalty-goal",
+          "team": "B"
+        }
+      ]
     },
 
     {
       "id": "match-2",
       "matchNumber": 2,
-      "stage": "Quarter final 2",
+      "stage": "Group Stage",
       "status": "not-started",
 
       "teamA": {
@@ -46,7 +118,7 @@
     {
       "id": "match-3",
       "matchNumber": 3,
-      "stage": "Quarter final 3",
+      "stage": "Group Stage",
       "status": "not-started",
 
       "teamA": {
@@ -65,7 +137,7 @@
     {
       "id": "match-4",
       "matchNumber": 4,
-      "stage": "Quarter final 4",
+      "stage": "Group Stage",
       "status": "not-started",
 
       "teamA": {
@@ -75,63 +147,6 @@
 
       "teamB": {
         "name": "Minnel",
-        "score": 0
-      },
-
-      "events": []
-    },
-
-    {
-      "id": "match-5",
-      "matchNumber": 5,
-      "stage": "Semi final 1",
-      "status": "not-started",
-
-      "teamA": {
-        "name": "TBD",
-        "score": 0
-      },
-
-      "teamB": {
-        "name": "TBD",
-        "score": 0
-      },
-
-      "events": []
-    },
-
-    {
-      "id": "match-6",
-      "matchNumber": 6,
-      "stage": "Semi final 2",
-      "status": "not-started",
-
-      "teamA": {
-        "name": "TBD",
-        "score": 0
-      },
-
-      "teamB": {
-        "name": "TBD",
-        "score": 0
-      },
-
-      "events": []
-    },
-
-    {
-      "id": "match-7",
-      "matchNumber": 7,
-      "stage": "Final",
-      "status": "not-started",
-
-      "teamA": {
-        "name": "TBD",
-        "score": 0
-      },
-
-      "teamB": {
-        "name": "TBD",
         "score": 0
       },
 
